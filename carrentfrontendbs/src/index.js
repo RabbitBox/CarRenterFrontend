@@ -1,13 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import './myStyle/styles.css';
+import './myStyle/Header.css';
+import './myStyle/carStyle.css';
+import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.css';
+import 'jquery/dist/jquery.min';
+import 'bootstrap/dist/js/bootstrap.min';
+import './fonts/fontawesome-webfont.eot';
+import './fonts/fontawesome-webfont.svg';
+import './fonts/fontawesome-webfont.ttf';
+import './fonts/fontawesome-webfont.woff';
+import './fonts/fontawesome-webfont.woff2';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <App />,
   document.getElementById('root')
 );
 
