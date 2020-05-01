@@ -17,7 +17,9 @@ const Clients = (props) => {
 
     const loadClients = () => {
         clientsService.fetchClients().then(response=>{
-            setClients(response.data);
+            let list = response.data;
+            list.sort((a, b) => (a.id > b.id) ? 1 : -1)
+            setClients(list);
         })
     };
 

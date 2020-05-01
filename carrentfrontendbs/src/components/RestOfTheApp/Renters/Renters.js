@@ -17,7 +17,9 @@ const Renters = (props) => {
 
     const loadRenters = () => {
         rentersService.fetchRenters().then(response=>{
-            setRenters(response.data);
+            let list = response.data;
+            list.sort((a, b) => (a.id > b.id) ? 1 : -1)
+            setRenters(list);
         })
     };
 

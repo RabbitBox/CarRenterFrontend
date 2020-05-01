@@ -21,7 +21,9 @@ const Cars = ({match}) => {
 
     const loadCars = () => {
         carService.fetchCars().then(response=>{
-            setCars(response.data);
+            let list = response.data;
+            list.sort((a, b) => (a.id > b.id) ? 1 : -1)
+            setCars(list);
         })
     };
 
@@ -42,6 +44,13 @@ const Cars = ({match}) => {
         })
     };
 
+    const setRating = (id, rating) => {
+        carService.setCarRating(id,rating).then(response =>{
+            loadCars();
+            history.push("/rota/cars/list");
+        })
+    };
+
     return(
         <div className="App">
             <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>Give you're self a comfy ride</h2>
@@ -51,7 +60,7 @@ const Cars = ({match}) => {
                 luck !</p>
 
             <div id="ccc1">
-                    <Route path={`${match.path}/list`} exact render={() => <ListCars cars={cars} onDetails={loadCar}/>}/>
+                    <Route path={`${match.path}/list`} exact render={() => <ListCars cars={cars} rating={setRating} onDetails={loadCar}/>}/>
                     {/*<Route path={"/cars/details/:id"} exact render={(props) => <CarDetails {...props} termines={carTermines} car={car}/>} />*/}
             </div>
         </div>

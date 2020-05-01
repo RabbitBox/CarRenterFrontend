@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,7 +21,10 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import './ds.css';
-
+import immg from "../../img/top.jpg";
+import ClientProfile from "./ClientProfile/ClientProfile";
+import clientsService from "../../API/axiosIngredientService";
+import ListCars from "../RestOfTheApp/Cars/ListCars";
 
 function Copyright() {
     return (
@@ -128,6 +132,38 @@ export default function Dashboard() {
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+
+    useEffect(() =>{
+        loadClient();
+    },[]);
+
+    const [client, setClient] = useState([]);
+
+
+    const deleteClient = (id) => {
+        clientsService.deleteClient(id).then(() => {
+            // OVDE TREBA DA IMA NEKAKVO PRENASOCUVANJE AMA SEGA NE RABOTI HISTORY PORADI TOA STO NE E VO RUTER
+        })
+    };
+
+    const loadClient = (id) => {            // ovde id ke se zima od sesijata spored toa koj klient vo momentot e najaven
+        clientsService.fetchClient(2).then(response=>{
+            setClient(response.data);
+        })
+    };
+
+    const updateClient = ((editedClient) => {
+        clientsService.updateClient(editedClient).then((response)=>{
+
+            const newClient = response.data;
+            setClient(newClient);
+
+        });
+    });
+
+
+
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -169,10 +205,11 @@ export default function Dashboard() {
                 <Container maxWidth="lg" className={classes.container}>
 
 
-
-
-
-
+                    <Router>
+                        <Switch>
+                            <Route path={"/dashboard/profile"} exact render={(props) => <ClientProfile {...props} client={client} onDelete={deleteClient}/>}/>
+                        </Switch>
+                    </Router>
 
                     <Box pt={6}>
                         <Copyright />

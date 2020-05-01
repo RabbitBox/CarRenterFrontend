@@ -4,6 +4,7 @@ import './index.css';
 import './myStyle/styles.css';
 import './myStyle/Header.css';
 import './myStyle/carStyle.css';
+import './myStyle/stylesClientProfil.css';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';

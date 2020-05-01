@@ -9,18 +9,17 @@ import Clients from "./Clients/Clients";
 const RestOfTheApp = () => {
 
     return(
-        <Router>
+
             <div className="App">
                 <Header/>
 
-                <Switch>
-                    <Route path={"/clients"} component={Clients}/>
-                    <Route path={"/renters"} component={Renters}/>
-                    <Route path={"/cars"} component={Cars}/>
-                </Switch>
+                    <Route path={"/rota/clients"} component={Clients}/>
+                    <Route path={"/rota/renters"} component={Renters}/>
+                    <Route path={"/rota/cars"} component={Cars}/>
+
 
             </div>
-        </Router>
+
     )
 };
 export default RestOfTheApp;

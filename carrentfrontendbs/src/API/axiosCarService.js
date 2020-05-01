@@ -64,6 +64,14 @@ const carService = {
             }
         });
     },
+    setCarRating: (id, rating) => {
+        return axios.patch("cars/rating/"+id,{},{
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'rating': rating
+            }
+        })
+    }
 };
 
 export default carService;

@@ -16,13 +16,13 @@ const SingleCar = (props) => {
                     <p className="text-left" style={{marginBottom: "15px"}}><strong>Production year: </strong>{props.single.yearOfProduction}
                     </p>
                     <p className="text-left" style={{margin: "0px"}}><strong>Price: ${props.single.costPerDay}</strong></p>
-                    <p className="text-left" style={{margin: "0px"}}><strong>Rating: {props.single.rating}</strong></p>
-                    <div className="rating rating2">
-                        <a href="#5" title="Give 5 stars">★</a>
-                        <a href="#4" title="Give 4 stars">★</a>
-                        <a href="#3" title="Give 3 stars">★</a>
-                        <a href="#2" title="Give 2 stars">★</a>
-                        <a href="#1" title="Give 1 star">★</a>
+                    <p className="text-left" style={{margin: "0px"}}><strong>Rating: {props.single.rating.toFixed(2)}</strong></p>
+                    <div className="rating rating2"> {/*treba da se naprave proverka dali korisnikot sto e najaven veke i ima setirano rejting na kolata*/}
+                        <a href="#" onClick={() => props.rating(props.single.id, 5)} title="Give 5 stars">★</a>
+                        <a href="#" onClick={() => props.rating(props.single.id, 4)} title="Give 4 stars">★</a>
+                        <a href="#" onClick={() => props.rating(props.single.id, 3)} title="Give 3 stars">★</a>
+                        <a href="#" onClick={() => props.rating(props.single.id, 2)} title="Give 2 stars">★</a>
+                        <a href="#" onClick={() => props.rating(props.single.id, 1)} title="Give 1 star">★</a>
                     </div>
                     <button className="btn btn-info" onClick={() => props.onDetails(props.single.id, "details")} type="button" ><strong>Make reservation</strong></button>
                 </div>
