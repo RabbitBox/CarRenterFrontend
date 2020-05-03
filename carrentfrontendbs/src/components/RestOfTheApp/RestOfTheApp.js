@@ -4,6 +4,7 @@ import Header from "./Header/Header";
 import Cars from "./Cars/Cars";
 import Renters from "./Renters/Renters";
 import Clients from "./Clients/Clients";
+import Reservations from "./Reservations/Reservations";
 
 
 const RestOfTheApp = () => {
@@ -14,6 +15,7 @@ const RestOfTheApp = () => {
                 <Header/>
 
                     <Route path={"/rota/clients"} component={Clients}/>
+                    <Route path={"/rota/reservations"} component={Reservations}/>
                     <Route path={"/rota/renters"} component={Renters}/>
                     <Route path={"/rota/cars"} component={Cars}/>
 

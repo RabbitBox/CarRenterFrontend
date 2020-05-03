@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch,useHistory, Route} from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -22,9 +22,11 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import './ds.css';
 import immg from "../../img/top.jpg";
-import ClientProfile from "./ClientProfile/ClientProfile";
+import ClientProfile from "./DashboardClient/ClientProfile";
 import clientsService from "../../API/axiosIngredientService";
 import ListCars from "../RestOfTheApp/Cars/ListCars";
+import DashboardClient from "./DashboardClient/DashboardClient";
+import DashboardRenter from "./DashboardRenter/DashboardRenter";
 
 function Copyright() {
     return (
@@ -132,37 +134,9 @@ export default function Dashboard() {
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-
-    useEffect(() =>{
-        loadClient();
-    },[]);
-
-    const [client, setClient] = useState([]);
-
-
-    const deleteClient = (id) => {
-        clientsService.deleteClient(id).then(() => {
-            // OVDE TREBA DA IMA NEKAKVO PRENASOCUVANJE AMA SEGA NE RABOTI HISTORY PORADI TOA STO NE E VO RUTER
-        })
+    const preventDefaultFunc = (e) => {
+        e.preventDefault();
     };
-
-    const loadClient = (id) => {            // ovde id ke se zima od sesijata spored toa koj klient vo momentot e najaven
-        clientsService.fetchClient(2).then(response=>{
-            setClient(response.data);
-        })
-    };
-
-    const updateClient = ((editedClient) => {
-        clientsService.updateClient(editedClient).then((response)=>{
-
-            const newClient = response.data;
-            setClient(newClient);
-
-        });
-    });
-
-
-
 
     return (
         <div className={classes.root}>
@@ -179,7 +153,7 @@ export default function Dashboard() {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Car Rent Management System
+                        <Link href="/rota/cars/list" style={{textDecoration: "none", color: "#fff"}} >Car Rent Management System</Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -204,12 +178,8 @@ export default function Dashboard() {
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
 
-
-                    <Router>
-                        <Switch>
-                            <Route path={"/dashboard/profile"} exact render={(props) => <ClientProfile {...props} client={client} onDelete={deleteClient}/>}/>
-                        </Switch>
-                    </Router>
+                    <Route path={"/dashboard/client"} component={DashboardClient} />
+                    <Route path={"/dashboard/renter"} component={DashboardRenter} />
 
                     <Box pt={6}>
                         <Copyright />

@@ -39,7 +39,7 @@ const rentersService = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'renterId': id,
-                'clientId': 1,
+                'clientId': 3,
             }
 
         });
@@ -49,10 +49,13 @@ const rentersService = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'renterId': id,
-                'clientId': 1,
+                'clientId': 3,
             }
 
         });
+    },
+    fetchFollowers: (id)=> {
+        return axios.get("renters/followers/" + id);
     },
 };
 

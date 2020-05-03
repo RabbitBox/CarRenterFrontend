@@ -34,6 +34,9 @@ const ingredientService = {
     searchClients: (firsName)=> {
         return axios.get(`/clients?firstName=${firsName}`);
     },
+    fetchFollowing: (id)=> {
+        return axios.get("clients/following/" + id);
+    },
 
 };
 

@@ -9,6 +9,9 @@ const carService = {
     fetchCar: (id)=> {
         return axios.get("cars/" + id);
     },
+    fetchCarsByRenterId: (id)=> {
+        return axios.get("cars/renter/" + id);
+    },
     deleteCar: (id)=> {
         return axios.delete("cars/" + id);
     },

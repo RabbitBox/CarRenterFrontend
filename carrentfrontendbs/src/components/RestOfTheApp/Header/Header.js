@@ -20,14 +20,17 @@ const Header = (props) => {
                                 <a className="l1" href="/rota/cars/list" style={{margin: "8px", opacity: "0.90"}}>Cars&nbsp;</a>
                             </li>
                             <li className="nav-item" role="presentation">
+                                <a className="l1" href="/rota/reservations" style={{margin: "8px", opacity: "0.90"}}>Reservations&nbsp;</a>
+                            </li>
+                            <li className="nav-item" role="presentation">
                                 <a className="l1" href="/rota/renters" style={{margin: "8px", opacity: "0.90"}}>Renters</a>
                             </li>
                             <li className="nav-item" role="presentation">
                                 <a className="l1" href="/rota/clients" style={{margin: "8px", opacity: "0.90"}}>Clients</a>
                             </li>
 
-                            <li className="nav-item" role="presentation">   {/*ovde treba da se praka idto na toj sto e najaven*/}
-                                <a className="l1" href="/dashboard/profile" style={{margin: "8px", opacity: "0.90"}}><i className="fa fa-user profilce"></i></a>
+                            <li className="nav-item" role="presentation">   {/*ovde treba da se praka idto na toj sto e najaven i ulogata za da znae sto da izrenderira t.e koja komponenta*/}
+                                <a className="l1" href="/dashboard/client/profile" style={{margin: "8px", opacity: "0.90"}}><i className="fa fa-user profilce"></i></a>
                             </li>
 
                         </ul>
