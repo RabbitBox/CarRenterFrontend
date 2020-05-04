@@ -81,8 +81,8 @@ const RenterFollowers = (props) => {
 
     return(
         <div id="dasClients" className="app">
-            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А complete list of renters that you are following !</h2>
-            <p className="text-center" id="car-paragraph" style={{color: "rgb(112,120,128)"}}>All of the renters that are
+            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А complete list of clients that follows you!</h2>
+            <p className="text-center" id="car-paragraph" style={{color: "rgb(112,120,128)"}}>All of the clients that are
                 listed down are legal, with a license obtained from the state.<br/>Go ahead, follow some of them and see the results.</p>
             <div id="rentersC">
 

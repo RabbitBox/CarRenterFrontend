@@ -9,7 +9,9 @@ import Dashboard from "../Dashboard/Dashboard";
 function App() {
     return (
         <div className="App">
-            {/*<Welcome/>*/}
+            {/*<Router>*/}
+            {/*    <Welcome/>*/}
+            {/*</Router>*/}
             <Router>
                 <Switch>
                     <Route path={"/dashboard"} component={Dashboard}/>

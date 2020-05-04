@@ -79,7 +79,8 @@ const RenterCars = (props) => {
                             <MDBBtn id={car.id} onClick={() => props.carEdit(car.id)} color="info" outline size="sm"><MDBIcon icon="magic" className="mr-1" />Edit</MDBBtn>
                             <MDBBtn onClick={() => props.onDeleteCar(car.id)} color="danger" size="sm"><MDBIcon icon="trash" className="mr-1" />Delete</MDBBtn>
                         </div>
-                    )
+                    ),
+                    clickEvent: () => props.carDetails(car.id, "details")
                 })
 
             )
@@ -93,7 +94,6 @@ const RenterCars = (props) => {
             <p className="text-center" id="car-paragraph" style={{color: "rgb(112,120,128)"}}>All of the renters that are
                 listed down are legal, with a license obtained from the state.<br/>Go ahead, follow some of them and see the results.</p>
             <div id="ccc1">
-                {console.log(props.cars)}
 
                 <MDBDataTable
                     responsive
@@ -101,7 +101,7 @@ const RenterCars = (props) => {
                     hover
                     data={data}
                 />
-
+                <MDBBtn onClick={() => props.pushAdd()} color="success" size="md"><MDBIcon icon="plus" className="mr-1" />Create Car</MDBBtn>
             </div>
 
         </div>

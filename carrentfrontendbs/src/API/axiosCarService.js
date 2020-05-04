@@ -15,13 +15,16 @@ const carService = {
     deleteCar: (id)=> {
         return axios.delete("cars/" + id);
     },
+    deleteCarHistory: (id)=> {
+        return axios.delete("cars/carHistories/" + id);
+    },
     addCar: (car) => {
 
         const formParams = qs.stringify(car);
         return axios.post("/cars",formParams, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'renterId': 1
+                'renterId': 7
             }
         });
     },
@@ -43,8 +46,8 @@ const carService = {
     fetchTermines: (id) => {
         return axios.get("cars/" +id+ "/termines" )
     },
-    fetchCarHistories: () => {
-        return axios.get("cars/carHistories/" +1)
+    fetchCarHistoriesByCar: (id) => {
+        return axios.get("cars/carHistories/" +id)
     },
     updateCarHistory: (his) => {
 
@@ -57,13 +60,13 @@ const carService = {
             }
         });
     },
-    addHistory: (his) => {
+    addHistory: (his, id) => {
 
         const formParams = qs.stringify(his);
         return axios.post("/cars/carHistories",formParams, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'carId': 1
+                'carId': id
             }
         });
     },

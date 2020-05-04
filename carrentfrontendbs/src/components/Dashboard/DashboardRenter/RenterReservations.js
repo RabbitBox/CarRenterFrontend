@@ -93,7 +93,7 @@ const RenterReservations = (props) => {
 
     return(
         <div id="dasReservations" className="app" style={{marginTop: "150px"}}>
-            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А complete list of reservations created by you!</h2>
+            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А complete list of reservations to the cars that you own!</h2>
             <p className="text-center" id="car-paragraph" style={{color: "rgb(112,120,128)"}}>The reservations that are
                 listed down are responsible for our success.<br/>We hope they will find their comfy ride.</p>
             <div id="ccc1">

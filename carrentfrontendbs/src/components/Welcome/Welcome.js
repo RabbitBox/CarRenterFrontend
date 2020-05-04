@@ -1,47 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Login from "./Login";
+import {BrowserRouter as Router, useHistory, Switch, Route} from 'react-router-dom';
+import SignUpClient from "./SignUpClient";
+import clientsService from "../../API/axiosIngredientService";
+import rentersService from "../../API/axiosRentersService";
+import SignUpRenter from "./SignUpRenter";
+import Landing from "./Landing";
 
 const Welcome = (props) => {
+
+    const pushToC = () => {
+        history.push("/signUpClient");
+    };
+
+    const pushToR = () => {
+        history.push("/signUpRenter");
+    };
+
+
+    const createClient = (client) => {
+        clientsService.addClient(client).then((response)=>{
+            history.push("/");
+        });
+    };
+
+    const createRenter = (renter) => {
+        rentersService.addRenter(renter).then((response)=>{
+            history.push("/");
+        });
+    };
+
+
+    const history = useHistory();
 
     return (
         <div className="App">
             <Login/>
-
-            <div className="main-container">
-                <div id="promo">
-                    <div className="jumbotron">
-                        <h1>&nbsp;Created by car fans!</h1>
-                        <p>Car Rent management system is a small platform for renting cars, id dolor id nibh ultricies
-                            vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.Nullam id dolor
-                            id nibh ultricies vehicula ut id elit. Cras justo
-                            odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in,
-                            egestas eget quam.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio,
-                            dapibus ac facilisis in, egestas eget quam.Nullam
-                            id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in,
-                            egestas eget quam.</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div className="home-container">
-                    <h1 id="create-account">Creating an account is fast &amp; easy!</h1>
-                    <div className="row">
-                        <div className="col-md-6 cl6"><i className="fa fa-user"></i>
-                            <h3><strong>Sign up as client</strong></h3>
-                            <p>Creating an account as a client is easier then ever. It provides multiple privilages from
-                                choosing the best suitetd car for you, to rating and rewiev a car.</p>
-                            <button className="btn btn-primary bg-info border-info" type="button">Sign up as client</button>
-                        </div>
-                        <div
-                            className="col-md-6 cl7"><i className="fa fa-key"></i>
-                            <h3><strong>Sign up as renter</strong></h3>
-                            <p>Creating an account as a renter is easier then ever. It provides multiple privilages from
-                                renting you're cars to clients from around the world, to earn a lot of money.</p>
-                            <button className="btn btn-primary bg-info border-info" type="button">Sign up as renter</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Route path={"/"} exact render={(props) => <Landing {...props} pushC={pushToC} pushR={pushToR}/>} />
+            <Route path={"/signUpClient"} exact render={(props) => <SignUpClient {...props} onCreate={createClient}/>} />
+            <Route path={"/signUpRenter"} exact render={(props) => <SignUpRenter {...props} onCreate={createRenter}/>} />
 
         </div>
     );
