@@ -19,48 +19,46 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
         </ListItem>
-        <a style={{textDecoration: "none", color: "#2d2d2d"}} href="#dasCars">
-        <ListItem button >
-            <ListItemIcon>
-                <PeopleIcon />
-            </ListItemIcon>
 
-            <ListItemText primary="Cars" />
-        </ListItem>
-        </a>
-        <a style={{textDecoration: "none", color: "#2d2d2d"}} href="#dasClients">
-        <ListItem button >
-            <ListItemIcon>
-                <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Clients"  />
-        </ListItem>
-        </a>
+        {/*<ListItem button component={Link} to="/dashboard/client/profile" >*/}
+        {/*    <ListItemIcon>*/}
+        {/*        <PeopleIcon />*/}
+        {/*    </ListItemIcon>*/}
 
-        <a style={{textDecoration: "none", color: "#2d2d2d"}} href="#dasRenters">
-        <ListItem button >
+        {/*    <ListItemText primary="Cars" />*/}
+        {/*</ListItem>*/}
+
+
+        {/*<ListItem button component={Link} to="/dashboard/client/profile" >*/}
+        {/*    <ListItemIcon>*/}
+        {/*        <PeopleIcon />*/}
+        {/*    </ListItemIcon>*/}
+        {/*    <ListItemText primary="Clients"  />*/}
+        {/*</ListItem>*/}
+
+        <ListItem button component={Link} to="/dashboard/client/following" >
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
             <ListItemText primary="Renters" />
         </ListItem>
-        </a>
-        <a style={{textDecoration: "none", color: "#2d2d2d"}} href="#dasReservations">
-            <ListItem button >
-                <ListItemIcon>
-                    <LayersIcon />
-                </ListItemIcon>
-                <ListItemText primary="Reservations" />
-            </ListItem>
-        </a>
-        <a style={{textDecoration: "none", color: "#2d2d2d"}} href="#dasHis">
-        <ListItem button >
+
+
+        <ListItem button component={Link} to="/dashboard/client/reservations" >
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
-            <ListItemText primary="Car Histories" />
+            <ListItemText primary="Reservations" />
         </ListItem>
-        </a>
+
+
+        {/*<ListItem button component={Link} to="/dashboard/client/profile" >*/}
+        {/*    <ListItemIcon>*/}
+        {/*        <LayersIcon />*/}
+        {/*    </ListItemIcon>*/}
+        {/*    <ListItemText primary="Car Histories" />*/}
+        {/*</ListItem>*/}
+
     </div>
 );
 

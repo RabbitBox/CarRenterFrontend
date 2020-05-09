@@ -17,7 +17,7 @@ const SingleCar = (props) => {
                     </p>
                     <p className="text-left" style={{margin: "0px"}}><strong>Price: ${props.single.costPerDay}</strong></p>
                     <p className="text-left" style={{margin: "0px"}}><strong>Rating: {props.single.rating.toFixed(2)}</strong></p>
-                    <div className="rating rating2"> {/*treba da se naprave proverka dali korisnikot sto e najaven veke i ima setirano rejting na kolata*/}
+                    <div className="rating rating2">
                         <a href="#" onClick={() => props.rating(props.single.id, 5)} title="Give 5 stars">★</a>
                         <a href="#" onClick={() => props.rating(props.single.id, 4)} title="Give 4 stars">★</a>
                         <a href="#" onClick={() => props.rating(props.single.id, 3)} title="Give 3 stars">★</a>

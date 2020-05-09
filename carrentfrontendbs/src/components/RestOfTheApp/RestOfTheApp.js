@@ -19,7 +19,6 @@ const RestOfTheApp = () => {
                     <Route path={"/rota/renters"} component={Renters}/>
                     <Route path={"/rota/cars"} component={Cars}/>
 
-
             </div>
 
     )

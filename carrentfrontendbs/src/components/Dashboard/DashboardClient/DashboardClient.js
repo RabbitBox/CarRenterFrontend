@@ -6,24 +6,28 @@ import EditClient from "./EditClient";
 import ClientReservations from "./ClientReservations";
 import ClientFollowing from "./ClientFollowing";
 import reservationsService from "../../../API/axiosReservationsService";
+import authenticationService from "../../../API/Authentication/axiosAuthenticationService";
 
 const DashboardClient = (props) => {
 
     useEffect(() =>{
-        loadClient(3);
+        loadClient();
     },[]);
 
     const [client, setClient] = useState([]);
+    const [currentUserId, setCurrentUserId] = useState(0);
     const history = useHistory();
 
     const deleteClient = (id) => {
         clientsService.deleteClient(id).then(() => {
-            history.push("/rota/cars/list") ////////////////// OVDE TREBA DA PRENASOCUVA KON LOGIN I DA GO ISCISTI OD SESIJATA
+            history.push("/logout")
         })
     };
 
-    const loadClient = (id) => {            // ovde id ke se zima od sesijata spored toa koj klient vo momentot e najaven
-        clientsService.fetchClient(id).then(response=>{
+    const loadClient = () => {
+        var clientId = authenticationService.getCurrentUser().id;
+        setCurrentUserId(clientId);
+        clientsService.fetchClient(clientId).then(response=>{
             setClient(response.data);
         })
     };
@@ -44,12 +48,9 @@ const DashboardClient = (props) => {
 
     return(
         <div>
-            <Route path={"/dashboard/client/profile"} exact render={(props) => <div>
-                <ClientProfile {...props} client={client} edit={pushToEdit} onDelete={deleteClient}/>
-                <ClientReservations/>
-                <ClientFollowing/>
-            </div>}/>
-
+            <Route path={"/dashboard/client/profile"} exact render={(props) => <ClientProfile {...props} client={client} edit={pushToEdit} onDelete={deleteClient}/>} />
+            <Route path={"/dashboard/client/reservations"} exact render={(props) => <ClientReservations {...props} />} />
+            <Route path={"/dashboard/client/following"} exact render={(props) => <ClientFollowing {...props} />} />
             <Route path={"/dashboard/client/edit/:id"} exact render={(props) => <EditClient {...props} onSubmit={updateClient}/>} />
 
         </div>

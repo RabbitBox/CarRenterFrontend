@@ -20,7 +20,7 @@ const SignUpRenter = (props) => {
     };
 
     const goBack = () => {
-        history.push("/")
+        history.push("/home")
     };
 
     return(

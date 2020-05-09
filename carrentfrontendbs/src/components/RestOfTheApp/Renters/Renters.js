@@ -3,6 +3,8 @@ import {Route, useHistory} from "react-router-dom"
 import {MDBBtn, MDBDataTable, MDBIcon} from 'mdbreact';
 import rentersService from "../../../API/axiosRentersService";
 import "../../../myStyle/carStyle.css"
+import authenticationService from "../../../API/Authentication/axiosAuthenticationService";
+import axiosClientService from "../../../API/axiosIngredientService";
 
 const Renters = (props) => {
 
@@ -11,6 +13,7 @@ const Renters = (props) => {
     },[]);
 
     const [renters, setRenters] = useState([]);
+    const [currentUserId, setCurrentUserId] = useState(0);
 
     const history = useHistory();
 
@@ -20,6 +23,18 @@ const Renters = (props) => {
             let list = response.data;
             list.sort((a, b) => (a.id > b.id) ? 1 : -1)
             setRenters(list);
+
+            var clientId = authenticationService.getCurrentUser().id;
+            setCurrentUserId(clientId);
+
+            let followingList = [];
+            axiosClientService.fetchFollowing(clientId).then(response => {
+                followingList = response.data;
+                followingList.forEach((f) => {
+                    document.getElementById(f.id).disabled = true;
+                    document.getElementById(f.id).parentElement.parentElement.parentElement.style.backgroundColor="#e1e7e8";
+                })
+            });
         })
     };
 
@@ -90,15 +105,14 @@ const Renters = (props) => {
     };
 
     const unfollowRenter = (renterId) => {
-        rentersService.unfollowRenter(renterId).then(() => {
+        rentersService.unfollowRenter(renterId, currentUserId).then(() => {
             document.getElementById(renterId).disabled = false;
             document.getElementById(renterId).parentElement.parentElement.parentElement.style.removeProperty("background-color");
         })
     };
 
     const followRenter = (renterId) => {
-        rentersService.followRenter(renterId).then(() => {
-            // ovde treba da se zeme klientot od sesijata i za nego da se zeme listata na negovi followers, dokolku nekoj od niv e veke kliknat treba da bide disable
+        rentersService.followRenter(renterId, currentUserId).then(() => {
             document.getElementById(renterId).disabled = true;
             document.getElementById(renterId).parentElement.parentElement.parentElement.style.backgroundColor="#e1e7e8";
         })

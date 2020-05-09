@@ -4,18 +4,20 @@ import './App.css';
 import Welcome from "../Welcome/Welcome";
 import RestOfTheApp from "../RestOfTheApp/RestOfTheApp";
 import Dashboard from "../Dashboard/Dashboard";
+import LogOut from "../Welcome/LogOut";
 
 
 function App() {
     return (
         <div className="App">
-            {/*<Router>*/}
-            {/*    <Welcome/>*/}
-            {/*</Router>*/}
+
             <Router>
                 <Switch>
+                    <Route path={"/home"} component={Welcome}/>
                     <Route path={"/dashboard"} component={Dashboard}/>
                     <Route path={"/rota"} component={RestOfTheApp}/>
+                    <Route path={"/logout"} component={LogOut}/>
+
                 </Switch>
             </Router>
 

@@ -4,6 +4,7 @@ import {MDBBtn, MDBDataTable, MDBIcon} from 'mdbreact';
 import clientService from "../../../API/axiosIngredientService";
 import "../../../myStyle/carStyle.css"
 import rentersService from "../../../API/axiosRentersService";
+import authenticationService from "../../../API/Authentication/axiosAuthenticationService";
 
 const ClientFollowing = (props) => {
 
@@ -12,12 +13,16 @@ const ClientFollowing = (props) => {
     },[]);
 
     const [renters, setRenters] = useState([]);
+    const [currentUserId, setCurrentUserId] = useState(0);
 
     const history = useHistory();
 
 
     const loadRenters = () => {
-        clientService.fetchFollowing(3).then(response=>{            /// ISTIO PROBLEM KAKO KAJ RESERVATIONS
+        var clientId = authenticationService.getCurrentUser().id;
+        setCurrentUserId(clientId);
+        clientService.fetchFollowing(clientId).then(response=>{
+
             let list = response.data;
             list.sort((a, b) => (a.id > b.id) ? 1 : -1)
             setRenters(list);
@@ -89,7 +94,7 @@ const ClientFollowing = (props) => {
     };
 
     const unfollowRenter = (renterId) => {
-        rentersService.unfollowRenter(renterId).then(() => {
+        rentersService.unfollowRenter(renterId, currentUserId).then(() => {
 
             const rentersReduced = renters.filter((r) => {
                 return r.id !== renterId;

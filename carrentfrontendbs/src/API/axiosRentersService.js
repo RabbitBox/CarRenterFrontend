@@ -34,22 +34,22 @@ const rentersService = {
     searchRenters: (name)=> {
         return axios.get(`/renters?name=${name}`);
     },
-    followRenter: (id)=> {
+    followRenter: (renterId, clientId)=> {
         return axios.post("clients/follow",{},{
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'renterId': id,
-                'clientId': 3,
+                'renterId': renterId,
+                'clientId': clientId,
             }
 
         });
     },
-    unfollowRenter: (id)=> {
+    unfollowRenter: (renterId, clientId)=> {
         return axios.post("clients/unFollow",{},{
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'renterId': id,
-                'clientId': 3,
+                'renterId': renterId,
+                'clientId': clientId,
             }
 
         });

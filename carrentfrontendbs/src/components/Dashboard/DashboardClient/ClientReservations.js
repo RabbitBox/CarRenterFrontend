@@ -3,6 +3,7 @@ import {Route, useHistory} from "react-router-dom"
 import {MDBBtn, MDBDataTable, MDBIcon, MDBInput} from 'mdbreact';
 import reservationsService from "../../../API/axiosReservationsService";
 import "../../../myStyle/carStyle.css"
+import authenticationService from "../../../API/Authentication/axiosAuthenticationService";
 
 const ClientReservations = (props) => {
 
@@ -11,12 +12,15 @@ const ClientReservations = (props) => {
     },[]);
 
     const [reservations, setReservations] = useState([]);
+    const [currentUserId, setCurrentUserId] = useState(0);
 
     const history = useHistory();
 
 
     const loadReservations = () => {
-        reservationsService.fetchReservationsByClientId(3).then(response=>{ /// NE USPEAV DA GO PRATAM OD RODITELOT IDTO NIKAKO... OVDE MOZEBI KE MOZAM DA GO PRISTAPAM OD SESIJATA
+        var clientId = authenticationService.getCurrentUser().id;
+        setCurrentUserId(clientId);
+        reservationsService.fetchReservationsByClientId(props.clientId).then(response=>{
             let list = response.data;
             list.sort((a, b) => (a.id > b.id) ? 1 : -1)
             setReservations(list);
