@@ -15,14 +15,14 @@ const reservationService = {
     fetchReservationsByClientId: (id)=> {
         return axios.get(`reservations?clientId=${id}`);
     },
-    addReservation: (reservation) => {
+    addReservation: (reservation, clientId, carId) => {
 
         const formParams = qs.stringify(reservation);
         return axios.post("reservations",formParams, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'clientId': 1,
-                'carId': 1,
+                'clientId': clientId,
+                'carId': carId,
             }
         });
     },

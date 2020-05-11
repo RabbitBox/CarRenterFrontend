@@ -5,38 +5,38 @@ import RenterProfile from "./RenterProfile";
 import EditRenter from "./EditRenter";
 import RenterFollowers from "./RenterFollowers";
 import RenterReservations from "./RenterReservations";
-import ClientProfile from "../DashboardClient/ClientProfile";
-import ClientReservations from "../DashboardClient/ClientReservations";
-import ClientFollowing from "../DashboardClient/ClientFollowing";
-import EditClient from "../DashboardClient/EditClient";
 import RenterCars from "./RenterCars";
 import carService from "../../../API/axiosCarService";
 import EditCar from "./EditCar";
 import AddCar from "./AddCar";
 import CarDetails from "./CarDetails";
 import AddCarHis from "./AddCarHis";
+import authenticationService from "../../../API/Authentication/axiosAuthenticationService";
 
 const DashboardRenter = (props) => {
 
     useEffect(() =>{
-        loadRenter(7);          // ovde id ke se zima od sesijata spored toa koj klient vo momentot e najaven
-        loadCars(7)
+        loadRenter();
+        loadCars()
     },[]);
 
     const [renter, setRenter] = useState([]);
     const [cars, setCars] = useState([]);
     const [car, setCar] = useState({});
     const [carHis, setHistories] = useState([]);
+    const [currentUserId, setCurrentUserId] = useState(0);
     const history = useHistory();
 
     const deleteRenter = (id) => {
         renterService.deleteRenter(id).then(() => {
-            history.push("/rota/cars/list") ////////////////// OVDE TREBA DA PRENASOCUVA KON LOGIN I DA GO ISCISTI OD SESIJATA
+            history.push("/logout")
         })
     };
 
-    const loadRenter = (id) => {
-        renterService.fetchRenter(id).then(response=>{
+    const loadRenter = () => {
+        var clientId = authenticationService.getCurrentUser().id;
+        setCurrentUserId(clientId);
+        renterService.fetchRenter(clientId).then(response=>{
             setRenter(response.data);
         })
     };
@@ -62,8 +62,9 @@ const DashboardRenter = (props) => {
         });
     });
 
-    const loadCars = (id) => {
-        carService.fetchCarsByRenterId(id).then(response=>{      // vnimavaj na id
+    const loadCars = () => {
+        var clientId = authenticationService.getCurrentUser().id;
+        carService.fetchCarsByRenterId(clientId).then(response=>{
             let list = response.data;
             list.sort((a, b) => (a.id > b.id) ? 1 : -1)
             setCars(list);
@@ -94,7 +95,7 @@ const DashboardRenter = (props) => {
             });
 
             setCars(newCarsRef);
-            history.push("/dashboard/renter/profile");
+            history.push("/dashboard/renter/cars");
         });
     });
 
@@ -111,7 +112,7 @@ const DashboardRenter = (props) => {
                 return r.id !== id;
             });
             setHistories(hisReduced);
-            history.push("/dashboard/renter/profile");
+            loadCar(id, "details")
         })
     };
 
@@ -121,8 +122,7 @@ const DashboardRenter = (props) => {
 
             const newCarsRef = [...carHis, tmpc];
             setHistories(newCarsRef);
-            history.push("/dashboard/renter/profile");
-
+            loadCar(id, "details")
         });
     };
 
@@ -139,12 +139,12 @@ const DashboardRenter = (props) => {
     };
 
     const createCar = (c) => {
-        carService.addCar(c).then((response)=>{
+        carService.addCar(c, currentUserId).then((response)=>{
             const tmpc = response.data;
 
             const newCarsRef = [...cars, tmpc];
             setCars(newCarsRef);
-            history.push("/dashboard/renter/profile");
+            history.push("/dashboard/renter/cars");
 
         });
     };
@@ -152,12 +152,11 @@ const DashboardRenter = (props) => {
 
     return(
         <div>
-            <Route path={"/dashboard/renter/profile"} exact render={(props) => <div>
-                <RenterProfile {...props} renter={renter} edit={pushToEdit} onDelete={deleteRenter}/>
-                <RenterReservations/>
-                <RenterFollowers/>
-                <RenterCars {...props} cars={cars} pushAdd={pushToAdd} carDetails={loadCar} carEdit={loadCar} onDeleteCar={deleteCar}/>
-            </div>}/>
+            <Route path={"/dashboard/renter/profile"} exact render={(props) => <RenterProfile {...props} renter={renter} edit={pushToEdit} onDelete={deleteRenter}/>}/>
+            <Route path={"/dashboard/renter/reservations"} exact render={(props) => <RenterReservations {...props} />}/>
+            <Route path={"/dashboard/renter/followers"} exact render={(props) => <RenterFollowers {...props} />}/>
+            <Route path={"/dashboard/renter/cars"} exact render={(props) => <RenterCars {...props} cars={cars} pushAdd={pushToAdd} carDetails={loadCar} carEdit={loadCar} onDeleteCar={deleteCar}/>}/>
+
 
             <Route path={"/dashboard/renter/edit/:id"} exact render={(props) => <EditRenter {...props} onSubmit={updateRenter}/>} />
             <Route path={"/dashboard/renter/car/edit/:id"} exact render={(props) => <EditCar {...props} car={car} onSubmitCar={updateCar}/>} />

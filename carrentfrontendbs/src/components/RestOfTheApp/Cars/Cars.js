@@ -3,9 +3,12 @@ import {Route, useHistory} from "react-router-dom"
 import carService from "../../../API/axiosCarService";
 import ListCars from "./ListCars";
 import "../../../myStyle/carStyle.css"
+import CarReservation from "./CarReservation";
+import reservationService from "../../../API/axiosReservationsService";
+import authenticationService from "../../../API/Authentication/axiosAuthenticationService";
 
 
-const Cars = ({match}) => {
+const Cars = () => {
 
     useEffect(() =>{
         loadCars();
@@ -14,7 +17,7 @@ const Cars = ({match}) => {
     const [cars, setCars] = useState([]);
     const [car, setCar] = useState({});
     const [carTermines, setCarTermines] = useState([]);
-
+    const [errMsg, setErrMsg] = useState('');
 
     const history = useHistory();
 
@@ -35,13 +38,25 @@ const Cars = ({match}) => {
             });
             setCar(response.data);
             if(decideFlag === "details"){
-                history.push(`/cars/details/${id}`);
+                history.push(`/rota/cars/makereservation/${id}`);
             }
             else if(decideFlag === "edit"){
-                history.push(`/cars/edit/${id}`);
+                history.push(`/rota/cars/edit/${id}`);
             }
 
         })
+    };
+
+    const createReservation = (r, carId) => {
+        var clientId = authenticationService.getCurrentUser().id;
+        reservationService.addReservation(r, clientId, carId).then((response)=>{
+            console.log(response.data)
+            const isDataAvailable = response.data && response.data.length;
+            if(!isDataAvailable)
+                history.push("/dashboard/client/reservations");
+            else
+                setErrMsg(response.data);
+        });
     };
 
     const setRating = (id, rating) => {
@@ -53,15 +68,15 @@ const Cars = ({match}) => {
 
     return(
         <div className="App">
-            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>Give you're self a comfy ride</h2>
+            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>Give your self a comfy ride</h2>
             <p className="text-center" id="car-paragraph" style={{color: "rgb(112,120,128)"}}>All of the cars that are
                 listed down are tehnical checked multiple times, showing good result on test drives.<br/>We encourage you
                 to pick the best ride for you're needs, we are here to help with the choice.<br/>Pick and ride, good
                 luck !</p>
 
             <div id="ccc1">
-                    <Route path={`${match.path}/list`} exact render={() => <ListCars cars={cars} rating={setRating} onDetails={loadCar}/>}/>
-                    {/*<Route path={"/cars/details/:id"} exact render={(props) => <CarDetails {...props} termines={carTermines} car={car}/>} />*/}
+                    <Route path={"/rota/cars/list"} exact render={() => <ListCars cars={cars} rating={setRating} onDetails={loadCar}/>}/>
+                    <Route path={"/rota/cars/makereservation/:id"} exact render={(props) => <CarReservation {...props} onCreate={createReservation} msg={errMsg} termines={carTermines} car={car}/>} />
             </div>
         </div>
     );

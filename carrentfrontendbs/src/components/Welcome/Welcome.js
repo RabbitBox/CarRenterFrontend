@@ -16,6 +16,7 @@ const Welcome = (props) => {
     const[link, setLink] = useState('');
     const[text, setText] = useState('');
     const[marker, setMarker] = useState('visible');
+    const[color, setColor] = useState('red');
 
     const pushToC = () => {
         history.push("/home/signUpClient");
@@ -27,12 +28,13 @@ const Welcome = (props) => {
 
 
     const createClient = (client) => {
-        authenticationService.register(client).then((response)=>{
+        authenticationService.registerClient(client).then((response)=>{
             const succ = response.data.message;
             setRegisterMsg(succ);
             setLink("/home");
             setText("Go ahead and Log-In");
-            setMarker("hidden")
+            setMarker("hidden");
+            setColor("green");
         },
         error => {
             const responseMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -40,20 +42,34 @@ const Welcome = (props) => {
             setLink("/home/signUpClient");
             setText("Please try again...");
             setMarker("visible");
+            setColor("red");
         });
     };
 
     const createRenter = (renter) => {
-        rentersService.addRenter(renter).then((response)=>{
-            history.push("/home");
-        });
+        authenticationService.registerRenter(renter).then((response)=>{
+                const succ = response.data.message;
+                setRegisterMsg(succ);
+                setLink("/home");
+                setText("Go ahead and Log-In");
+                setMarker("hidden");
+                setColor("green");
+            },
+            error => {
+                const responseMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+                setRegisterMsg(responseMessage);
+                setLink("/home/signUpClient");
+                setText("Please try again...");
+                setMarker("visible");
+                setColor("red");
+            });
     };
 
 
     const loginUser = (credentials) => {
-        authenticationService.signInUser(credentials).then((response)=>{    //redirekcija
+        authenticationService.signInUser(credentials).then((response)=>{
                 localStorage.setItem("user", JSON.stringify(response.data));
-                history.push("/rota")
+                history.push("/rota/cars/list")
         },
         error => {
             const responseMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -68,8 +84,8 @@ const Welcome = (props) => {
         <div className="App">
             <Login onLogin={loginUser} message={message}/>
             <Route path={"/home/"} exact render={(props) => <Landing {...props} pushC={pushToC} pushR={pushToR}/>} />
-            <Route path={"/home/signUpClient"} exact render={(props) => <SignUpClient {...props} marker={marker} link={link} text={text} registerMsg={registerMsg} onCreate={createClient}/>} />
-            <Route path={"/home/signUpRenter"} exact render={(props) => <SignUpRenter {...props} onCreate={createRenter}/>} />
+            <Route path={"/home/signUpClient"} exact render={(props) => <SignUpClient {...props} color={color} marker={marker} link={link} text={text} registerMsg={registerMsg} onCreate={createClient}/>} />
+            <Route path={"/home/signUpRenter"} exact render={(props) => <SignUpRenter {...props} color={color} marker={marker} link={link} text={text} registerMsg={registerMsg} onCreate={createRenter}/>} />
 
         </div>
     );

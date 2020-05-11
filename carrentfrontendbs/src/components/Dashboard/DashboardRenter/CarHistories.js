@@ -86,7 +86,7 @@ const CarHistories = (props) => {
 
     return(
         <div id="dasCars" className="app">
-            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А complete list of CAR HISTORIES for the car!</h2>
+            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А complete list of <b>car histories</b> this car!</h2>
             <p className="text-center" id="car-paragraph" style={{color: "rgb(112,120,128)"}}>All of the renters that are
                 listed down are legal, with a license obtained from the state.<br/>Go ahead, follow some of them and see the results.</p>
             <div id="ccc1">

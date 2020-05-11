@@ -7,7 +7,7 @@ const CarDetails = (props) => {
     const history = useHistory();
 
     const goBack = () => {
-        history.push("/dashboard/renter/profile")
+        history.push("/dashboard/renter/cars")
     };
 
     return(

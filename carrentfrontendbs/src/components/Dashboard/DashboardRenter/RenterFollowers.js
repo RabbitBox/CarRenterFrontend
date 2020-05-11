@@ -4,6 +4,7 @@ import {MDBBtn, MDBDataTable, MDBIcon} from 'mdbreact';
 import clientService from "../../../API/axiosIngredientService";
 import "../../../myStyle/carStyle.css"
 import rentersService from "../../../API/axiosRentersService";
+import authenticationService from "../../../API/Authentication/axiosAuthenticationService";
 
 const RenterFollowers = (props) => {
 
@@ -12,12 +13,16 @@ const RenterFollowers = (props) => {
     },[]);
 
     const [renters, setRenters] = useState([]);
+    const [currentUserId, setCurrentUserId] = useState(0);
+
 
     const history = useHistory();
 
 
     const loadRenters = () => {
-        rentersService.fetchFollowers(7).then(response=>{
+        var clientId = authenticationService.getCurrentUser().id;
+        setCurrentUserId(clientId);
+        rentersService.fetchFollowers(clientId).then(response=>{
             let list = response.data;
             list.sort((a, b) => (a.id > b.id) ? 1 : -1)
             setRenters(list);
@@ -81,7 +86,7 @@ const RenterFollowers = (props) => {
 
     return(
         <div id="dasClients" className="app">
-            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А complete list of clients that follows you!</h2>
+            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А complete list of <b>clients</b> that follows you!</h2>
             <p className="text-center" id="car-paragraph" style={{color: "rgb(112,120,128)"}}>All of the clients that are
                 listed down are legal, with a license obtained from the state.<br/>Go ahead, follow some of them and see the results.</p>
             <div id="rentersC">

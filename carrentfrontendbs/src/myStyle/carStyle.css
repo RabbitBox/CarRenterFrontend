@@ -6,6 +6,9 @@
   padding: 20px;
   margin-bottom: 30px;
 }
+#reservation-con{
+  width: 1200px;
+}
 
 #ho {
   display: block;

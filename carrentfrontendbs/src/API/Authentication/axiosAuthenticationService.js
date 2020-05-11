@@ -12,12 +12,27 @@ const authenticationService = {
         localStorage.removeItem("user");
     },
 
-    register: (data) => {
-        return axios.post("/api/auth/" + "signup", data);
+    registerClient: (data) => {
+        return axios.post("/api/auth/" + "signupClient", data);
+    },
+
+
+    registerRenter: (data) => {
+        return axios.post("/api/auth/" + "signupRenter", data);
     },
 
     getCurrentUser: () => {
         return JSON.parse(localStorage.getItem('user'));
+    },
+
+    isAuthenticated() {
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if (user && user.accessToken) {
+            return true;
+        } else {
+            return false;
+        }
     },
 
     addRenter: (term) => {

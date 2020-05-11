@@ -12,7 +12,7 @@ const SignUpClient = (props) => {
             "username" : e.target.username.value,
             "email" : e.target.email.value,
             "password" : e.target.password.value,
-            "roles" : ["user"],
+            "role" : ["user"],
             "firstName": e.target.firstName.value,
             "lastName": e.target.lastName.value,
             "embg": e.target.embg.value,
@@ -49,7 +49,7 @@ const SignUpClient = (props) => {
 
                     <div  className="col-md-9 personal-info">
                         <div>
-                            <h4 style={{color: "red"}}>{props.registerMsg}</h4>
+                            <h4 style={{color: props.color}}>{props.registerMsg}</h4>
                             <a style={{fontSize: "30px", color: "#000080"}} href={props.link}>{props.text}</a>
                         </div>
                         <div style={{visibility: `${props.marker}`}} id="hideOrNo">
@@ -122,20 +122,20 @@ const SignUpClient = (props) => {
                                 <div className="form-group">
                                     <label className="col-md-3 control-label">e-Mail:</label>
                                     <div className="col-md-8">
-                                        <input className="form-control"  type="text" name={"email"} />
+                                        <input className="form-control"  type="email" name={"email"} />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label className="col-md-3 control-label">Password:</label>
                                     <div className="col-md-8">
-                                        <input className="form-control"  type="text" name={"password"} />
+                                        <input className="form-control"  type="password" name={"password"} />
                                     </div>
                                 </div>
 
                                 <div className="form-group">
                                     <label className="col-md-3 control-label"> </label>
                                     <div className="col-md-8">
-                                        <input onClick={scrollOnTop} type="submit" className="btn btn-warning" value="Save Changes"/>
+                                        <input onClick={scrollOnTop} type="submit" className="btn btn-success" value="Register"/>
                                         <span> </span>
                                         <input onClick={goBack} type="button" className="btn btn-dark" value="Cancel"/>
                                     </div>

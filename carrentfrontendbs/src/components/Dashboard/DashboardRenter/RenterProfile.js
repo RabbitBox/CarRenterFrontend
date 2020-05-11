@@ -5,7 +5,7 @@ const RenterProfile = (props) => {
     return(
         <div className="container" id="profil-container">
             <h2 className="text-center hb">User profile</h2>
-            <p className="text-center fb">User informations and statistcs, spendings, following, reservationst
+            <p className="text-center fb">User informations and statistcs, spendings, followers, reservations
                 and more.</p>
             <div className="row">
                 <div className="col profil-col"><img id="profil-img" style={{height: "410px", marginTop: "15px"}} src={props.renter.imgUrl}/></div>

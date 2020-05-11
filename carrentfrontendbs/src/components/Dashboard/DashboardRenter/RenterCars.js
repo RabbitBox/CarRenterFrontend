@@ -76,11 +76,12 @@ const RenterCars = (props) => {
                     rating: car.rating,
                     action:(
                         <div>
-                            <MDBBtn id={car.id} onClick={() => props.carEdit(car.id)} color="info" outline size="sm"><MDBIcon icon="magic" className="mr-1" />Edit</MDBBtn>
+                            <MDBBtn id={car.id} onClick={() => props.carEdit(car.id,"edit")} color="info" outline size="sm"><MDBIcon icon="magic" className="mr-1" />Edit</MDBBtn>
                             <MDBBtn onClick={() => props.onDeleteCar(car.id)} color="danger" size="sm"><MDBIcon icon="trash" className="mr-1" />Delete</MDBBtn>
+                            <MDBBtn onClick={() => props.carDetails(car.id, "details")} color="success" size="sm"><MDBIcon icon="far fa-file-alt" className="mr-1" />Details</MDBBtn>
                         </div>
                     ),
-                    clickEvent: () => props.carDetails(car.id, "details")
+
                 })
 
             )
@@ -90,9 +91,9 @@ const RenterCars = (props) => {
 
     return(
         <div id="dasCars" className="app">
-            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А complete list of renters that you are following !</h2>
-            <p className="text-center" id="car-paragraph" style={{color: "rgb(112,120,128)"}}>All of the renters that are
-                listed down are legal, with a license obtained from the state.<br/>Go ahead, follow some of them and see the results.</p>
+            <h2 className="text-center" style={{color: "rgb(60,64,68)"}}>А list of <b>cars</b> that you own!</h2>
+            <p className="text-center" id="car-paragraph" style={{color: "rgb(112,120,128)"}}>All of the cars that are
+                listed down are legal, with a license obtained from the state.<br/>.</p>
             <div id="ccc1">
 
                 <MDBDataTable

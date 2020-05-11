@@ -1,6 +1,21 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import authenticationService from "../../../API/Authentication/axiosAuthenticationService";
 
 const Header = (props) => {
+
+    const [userRole, setUserRole] = useState(false);
+    const [renterRole, setRenterRole] = useState(false);
+    const [adminRole, setAdminRole] = useState(false);
+
+    useEffect(() => {
+        const currentUser = authenticationService.getCurrentUser();
+
+        if(currentUser){
+            setUserRole(currentUser.roles.includes("ROLE_USER"));
+            setAdminRole(currentUser.roles.includes("ROLE_ADMIN"));
+            setRenterRole(currentUser.roles.includes("ROLE_RENTER"));
+        }
+    }, []);
 
     return(
         <nav className="navbar navbar-light navbar-expand-md" id="header-nav" style={{padding: "15px"}}>
@@ -25,10 +40,18 @@ const Header = (props) => {
                             <li className="nav-item" role="presentation">
                                 <a className="l1" href="/rota/clients" style={{margin: "8px", opacity: "0.90"}}>Clients</a>
                             </li>
-
-                            <li className="nav-item" role="presentation">   {/*ovde treba da se praka idto na toj sto e najaven i ulogata za da znae sto da izrenderira t.e koja komponenta*/}
+                            {userRole &&
+                            <li className="nav-item" role="presentation">
                                 <a className="l1" href="/dashboard/client/profile" style={{margin: "8px", opacity: "0.90"}}><i className="fa fa-user profilce"></i></a>
-                            </li>
+                            </li> }
+                            {renterRole &&
+                            <li className="nav-item" role="presentation">
+                                <a className="l1" href="/dashboard/renter/profile" style={{margin: "8px", opacity: "0.90"}}><i className="fa fa-user profilce"></i></a>
+                            </li> }
+                            {adminRole &&
+                            <li className="nav-item" role="presentation">
+                                <a className="l1" href="/dashboard/admin/profile" style={{margin: "8px", opacity: "0.90"}}><i className="fa fa-user profilce"></i></a>
+                            </li> }
                             <li className="nav-item" role="presentation">
                                 <a className="l1" href="/logout" style={{fontSize: "27px", margin: "4px", opacity: "0.90"}}><i className="fas fa-power-off"></i></a>
                             </li>

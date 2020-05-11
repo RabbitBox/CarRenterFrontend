@@ -3,14 +3,21 @@ import {Route, useHistory} from "react-router-dom"
 import {MDBBtn, MDBDataTable, MDBIcon, MDBInput} from 'mdbreact';
 import clientsService from "../../../API/axiosIngredientService";
 import "../../../myStyle/carStyle.css"
+import authenticationService from "../../../API/Authentication/axiosAuthenticationService";
 
 const Clients = (props) => {
 
+
     useEffect(() =>{
+        const currentUser = authenticationService.getCurrentUser();
+        if(currentUser){
+            setAdminRole(currentUser.roles.includes("ROLE_ADMIN"));
+        }
         loadClients();
     },[]);
 
     const [clients, setClients] = useState([]);
+    const [adminRole, setAdminRole] = useState(false);
 
     const history = useHistory();
 
@@ -99,6 +106,7 @@ const Clients = (props) => {
                     crimeRecord: (<MDBInput checked={client.crimeRecord} disabled type="checkbox" size="sm" id="checkboxCrime"/>),
                     driverLicenceNumber: client.driverLicenceNumber,
                     action:(
+                        adminRole &&
                         <MDBBtn onClick={() => deleteClient(client.id)} color="danger" size="sm"><MDBIcon icon="trash" className="mr-1" />Delete</MDBBtn>
                     )
                 })

@@ -15,7 +15,6 @@ const EditCar = (props) => {
     const onFormSubmit = (e) => {
         e.preventDefault();
         props.onSubmitCar(car);
-        history.push("/dashboard/renter/profile")
     };
 
     const handleOnChange = (e) => {
@@ -25,7 +24,7 @@ const EditCar = (props) => {
     };
 
     const goBack = () => {
-        history.push("/dashboard/renter/profile")
+        history.push("/dashboard/renter/cars")
     };
 
     return(
@@ -44,7 +43,7 @@ const EditCar = (props) => {
 
                     <div className="col-md-9 personal-info">
 
-                        <h3>Personal info</h3>
+                        <h3>Car info</h3>
 
                         <form onSubmit={onFormSubmit} className="form-horizontal" role="form">
                             <div className="form-group">

@@ -21,7 +21,7 @@ const AddCarHis = (props) => {
     };
 
     const goBack = () => {
-        history.push("/dashboard/renter/profile")
+        history.push("/dashboard/renter/cars")
     };
 
     return(

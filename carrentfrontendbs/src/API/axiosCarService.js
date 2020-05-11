@@ -18,13 +18,13 @@ const carService = {
     deleteCarHistory: (id)=> {
         return axios.delete("cars/carHistories/" + id);
     },
-    addCar: (car) => {
+    addCar: (car, renterId) => {
 
         const formParams = qs.stringify(car);
         return axios.post("/cars",formParams, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'renterId': 7
+                'renterId': renterId
             }
         });
     },

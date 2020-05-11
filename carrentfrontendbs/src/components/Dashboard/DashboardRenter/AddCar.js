@@ -22,7 +22,7 @@ const AddCar = (props) => {
     };
 
     const goBack = () => {
-        history.push("/dashboard/renter/profile")
+        history.push("/dashboard/renter/cars")
     };
 
     return(
@@ -41,7 +41,7 @@ const AddCar = (props) => {
 
                     <div className="col-md-9 personal-info">
 
-                        <h3>Personal info</h3>
+                        <h3>Car info</h3>
 
                         <form onSubmit={onFormSubmit} className="form-horizontal" role="form">
                             <div className="form-group">
@@ -90,7 +90,7 @@ const AddCar = (props) => {
                             <div className="form-group">
                                 <label className="col-md-3 control-label"> </label>
                                 <div className="col-md-8">
-                                    <input type="submit" className="btn btn-warning" value="Save Changes"/>
+                                    <input type="submit" className="btn btn-success" value="Add Car"/>
                                     <span> </span>
                                     <input onClick={goBack} type="button" className="btn btn-dark" value="Cancel"/>
                                 </div>

@@ -19,7 +19,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import {MainListItems, mainListItems, secondaryListItems} from './listItems';
 import './ds.css';
 import immg from "../../img/top.jpg";
 import ClientProfile from "./DashboardClient/ClientProfile";
@@ -153,7 +153,7 @@ export default function Dashboard() {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        <Link href="/rota/cars/list" style={{textDecoration: "none", color: "#fff"}} >Car Rent Management System</Link>
+                        <Link href="/rota/cars/list" style={{textDecoration: "none", color: "#000000"}} >Car Rent Management System</Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -170,7 +170,7 @@ export default function Dashboard() {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{mainListItems}</List>
+                <List><MainListItems/></List>
                 <Divider />
                 <List>{secondaryListItems}</List>
             </Drawer>

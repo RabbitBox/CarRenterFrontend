@@ -20,10 +20,11 @@ const ClientReservations = (props) => {
     const loadReservations = () => {
         var clientId = authenticationService.getCurrentUser().id;
         setCurrentUserId(clientId);
-        reservationsService.fetchReservationsByClientId(props.clientId).then(response=>{
+        reservationsService.fetchReservationsByClientId(clientId).then(response=>{
             let list = response.data;
             list.sort((a, b) => (a.id > b.id) ? 1 : -1)
             setReservations(list);
+
         })
     };
 
@@ -88,6 +89,7 @@ const ClientReservations = (props) => {
                     timeFrom: reservation.from,
                     timeTo: reservation.to,
                     comment: reservation.comment,
+
 
                 })
 

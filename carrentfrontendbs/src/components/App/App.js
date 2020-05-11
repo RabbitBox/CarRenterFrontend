@@ -5,18 +5,24 @@ import Welcome from "../Welcome/Welcome";
 import RestOfTheApp from "../RestOfTheApp/RestOfTheApp";
 import Dashboard from "../Dashboard/Dashboard";
 import LogOut from "../Welcome/LogOut";
+import RouteAuthenticated from "../Routes/AuthenticatedRouter";
+import RouteUnauthenticated from "../Routes/UnauthenticatedRoute";
 
 
 function App() {
+
+
     return (
         <div className="App">
 
             <Router>
                 <Switch>
-                    <Route path={"/home"} component={Welcome}/>
-                    <Route path={"/dashboard"} component={Dashboard}/>
-                    <Route path={"/rota"} component={RestOfTheApp}/>
+
+                    <RouteUnauthenticated path={"/home"} component={Welcome}/>
                     <Route path={"/logout"} component={LogOut}/>
+                    <RouteAuthenticated path={"/dashboard"} component={Dashboard}/>
+                    <RouteAuthenticated path={"/rota"} component={RestOfTheApp}/>
+
 
                 </Switch>
             </Router>

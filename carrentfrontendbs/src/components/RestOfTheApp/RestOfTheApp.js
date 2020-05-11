@@ -5,6 +5,7 @@ import Cars from "./Cars/Cars";
 import Renters from "./Renters/Renters";
 import Clients from "./Clients/Clients";
 import Reservations from "./Reservations/Reservations";
+import Footer from "./Footer/Footer";
 
 
 const RestOfTheApp = () => {
@@ -18,7 +19,7 @@ const RestOfTheApp = () => {
                     <Route path={"/rota/reservations"} component={Reservations}/>
                     <Route path={"/rota/renters"} component={Renters}/>
                     <Route path={"/rota/cars"} component={Cars}/>
-
+                <Footer/>
             </div>
 
     )

@@ -9,6 +9,10 @@ const SignUpRenter = (props) => {
         e.preventDefault();
 
         const newRenter = {
+            "username" : e.target.username.value,
+            "email" : e.target.email.value,
+            "password" : e.target.password.value,
+            "role" : ["renter"],
             "firstName": e.target.firstName.value,
             "lastName": e.target.lastName.value,
             "embg": e.target.embg.value,
@@ -21,6 +25,10 @@ const SignUpRenter = (props) => {
 
     const goBack = () => {
         history.push("/home")
+    };
+
+    const scrollOnTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return(
@@ -38,7 +46,11 @@ const SignUpRenter = (props) => {
 
 
                     <div className="col-md-9 personal-info">
-
+                        <div>
+                            <h4 style={{color: props.color}}>{props.registerMsg}</h4>
+                            <a style={{fontSize: "30px", color: "#000080"}} href={props.link}>{props.text}</a>
+                        </div>
+                        <div style={{visibility: `${props.marker}`}} id="hideOrNo">
                         <h3>To create account please enter you're personal info</h3>
 
                         <form onSubmit={onFormSubmit} className="form-horizontal" role="form">
@@ -85,15 +97,37 @@ const SignUpRenter = (props) => {
                                 </div>
                             </div>
 
+                            <hr/>
+                            <h3>Enter account informations</h3>
+                            <div className="form-group">
+                                <label className="col-md-3 control-label">Username:</label>
+                                <div className="col-md-8">
+                                    <input className="form-control"  type="text" name={"username"} />
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label className="col-md-3 control-label">e-Mail:</label>
+                                <div className="col-md-8">
+                                    <input className="form-control"  type="email" name={"email"} />
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label className="col-md-3 control-label">Password:</label>
+                                <div className="col-md-8">
+                                    <input className="form-control"  type="password" name={"password"} />
+                                </div>
+                            </div>
+
                             <div className="form-group">
                                 <label className="col-md-3 control-label"> </label>
                                 <div className="col-md-8">
-                                    <input type="submit" className="btn btn-warning" value="Save Changes"/>
+                                    <input onClick={scrollOnTop} type="submit" className="btn btn-success" value="Register"/>
                                     <span> </span>
                                     <input onClick={goBack} type="button" className="btn btn-dark" value="Cancel"/>
                                 </div>
                             </div>
                         </form>
+                        </div>
                     </div>
                 </div>
             </div>

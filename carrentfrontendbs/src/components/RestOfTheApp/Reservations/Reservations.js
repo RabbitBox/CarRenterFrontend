@@ -3,6 +3,7 @@ import {Route, useHistory} from "react-router-dom"
 import {MDBBtn, MDBDataTable, MDBIcon, MDBInput} from 'mdbreact';
 import reservationsService from "../../../API/axiosReservationsService";
 import "../../../myStyle/carStyle.css"
+import axiosClientService from "../../../API/axiosIngredientService";
 
 const Reservations = (props) => {
 
@@ -20,6 +21,8 @@ const Reservations = (props) => {
             let list = response.data;
             list.sort((a, b) => (a.id > b.id) ? 1 : -1)
             setReservations(list);
+
+
         })
     };
 
@@ -73,6 +76,7 @@ const Reservations = (props) => {
                 sort: 'asc',
                 width: 100
             }
+
         ],
         rows: [
             ...reservations.map((reservation) => ({
@@ -84,6 +88,7 @@ const Reservations = (props) => {
                     timeFrom: reservation.from,
                     timeTo: reservation.to,
                     comment: reservation.comment,
+
 
                 })
 

@@ -9,11 +9,18 @@ import axiosClientService from "../../../API/axiosIngredientService";
 const Renters = (props) => {
 
     useEffect(() =>{
+        const currentUser = authenticationService.getCurrentUser();
+        if(currentUser){
+            setAdminRole(currentUser.roles.includes("ROLE_ADMIN"));
+            setUserRole(currentUser.roles.includes("ROLE_USER"));
+        }
         loadRenters();
     },[]);
 
     const [renters, setRenters] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(0);
+    const [adminRole, setAdminRole] = useState(false);
+    const [userRole, setUserRole] = useState(false);
 
     const history = useHistory();
 
@@ -93,9 +100,9 @@ const Renters = (props) => {
                 sex: renter.sex,
                 action:(
                     <div>
-                        <MDBBtn id={renter.id} onClick={() => followRenter(renter.id)} color="info" outline size="sm"><MDBIcon icon="magic" className="mr-1" />Follow</MDBBtn>
-                        <MDBBtn id={renter.id} onClick={() => unfollowRenter(renter.id)} color="info" outline size="sm"><MDBIcon icon="magic" className="mr-1" />UnFollow</MDBBtn>
-                        <MDBBtn hidden onClick={() => deleteRenter(renter.id)} color="danger" size="sm"><MDBIcon icon="trash" className="mr-1" />Delete</MDBBtn>
+                        {userRole && <MDBBtn id={renter.id} onClick={() => followRenter(renter.id)} color="info" outline size="sm"><MDBIcon icon="magic" className="mr-1" />Follow</MDBBtn>}
+                        {userRole && <MDBBtn id={renter.id} onClick={() => unfollowRenter(renter.id)} color="info" outline size="sm"><MDBIcon icon="magic" className="mr-1" />UnFollow</MDBBtn>}
+                        {adminRole && <MDBBtn onClick={() => deleteRenter(renter.id)} color="danger" size="sm"><MDBIcon icon="trash" className="mr-1" />Delete</MDBBtn>}
                     </div>
                 )
                 })
