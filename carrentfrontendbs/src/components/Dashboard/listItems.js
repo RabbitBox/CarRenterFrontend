@@ -10,7 +10,6 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import {Link} from "react-router-dom";
 import './ds.css';
 import authenticationService from "../../API/Authentication/axiosAuthenticationService";
-import Cars from "../RestOfTheApp/Cars/Cars";
 
 export const MainListItems = () => {
 
@@ -108,26 +107,39 @@ export const MainListItems = () => {
     );
 };
 
-export const secondaryListItems = (
+export const SecondaryListItems = () => {
+
+    const [userRole, setUserRole] = useState(false);
+    const [renterRole, setRenterRole] = useState(false);
+    const [adminRole, setAdminRole] = useState(false);
+
+    useEffect(() => {
+        const currentUser = authenticationService.getCurrentUser();
+
+        if(currentUser){
+            setUserRole(currentUser.roles.includes("ROLE_USER"));
+            setAdminRole(currentUser.roles.includes("ROLE_ADMIN"));
+            setRenterRole(currentUser.roles.includes("ROLE_RENTER"));
+        }
+    }, []);
+
+    return (
     <div>
         <ListSubheader inset>Logs / reports</ListSubheader>
+        {adminRole &&
+        <ListItem button component={Link} to="/dashboard/admin/logs">
+            <ListItemIcon>
+                <AssignmentIcon/>
+            </ListItemIcon>
+            <ListItemText primary="System Logs"/>
+        </ListItem>}
+        {adminRole &&
         <ListItem button>
             <ListItemIcon>
-                <AssignmentIcon />
+                <AssignmentIcon/>
             </ListItemIcon>
-            <ListItemText primary="Renter Session Logs" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Client Session Logs" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Reports" />
-        </ListItem>
+            <ListItemText primary="Reports"/>
+        </ListItem> }
     </div>
-);
+    );
+};

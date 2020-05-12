@@ -19,7 +19,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {MainListItems, mainListItems, secondaryListItems} from './listItems';
+import {MainListItems, mainListItems, SecondaryListItems, secondaryListItems} from './listItems';
 import './ds.css';
 import immg from "../../img/top.jpg";
 import ClientProfile from "./DashboardClient/ClientProfile";
@@ -27,6 +27,7 @@ import clientsService from "../../API/axiosIngredientService";
 import ListCars from "../RestOfTheApp/Cars/ListCars";
 import DashboardClient from "./DashboardClient/DashboardClient";
 import DashboardRenter from "./DashboardRenter/DashboardRenter";
+import DashboardAdmin from "./DashboardAdmin/DashboardAdmin";
 
 function Copyright() {
     return (
@@ -172,7 +173,7 @@ export default function Dashboard() {
                 <Divider />
                 <List><MainListItems/></List>
                 <Divider />
-                <List>{secondaryListItems}</List>
+                <List><SecondaryListItems/></List>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
@@ -180,6 +181,7 @@ export default function Dashboard() {
 
                     <Route path={"/dashboard/client"} component={DashboardClient} />
                     <Route path={"/dashboard/renter"} component={DashboardRenter} />
+                    <Route path={"/dashboard/admin"} component={DashboardAdmin} />
 
                     <Box pt={6}>
                         <Copyright />

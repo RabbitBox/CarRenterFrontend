@@ -8,8 +8,13 @@ const authenticationService = {
         return axios.post("api/auth/signin",credentials);
     },
 
-    logout: () => {
+    logout: (logId) => {
         localStorage.removeItem("user");
+        return axios.post("/api/auth/logout",{}, {
+            headers : {
+                'logId': logId
+            }
+        })
     },
 
     registerClient: (data) => {

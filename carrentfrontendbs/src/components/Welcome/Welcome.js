@@ -69,7 +69,8 @@ const Welcome = (props) => {
     const loginUser = (credentials) => {
         authenticationService.signInUser(credentials).then((response)=>{
                 localStorage.setItem("user", JSON.stringify(response.data));
-                history.push("/rota/cars/list")
+                history.push("/rota/cars/list");
+                history.go();
         },
         error => {
             const responseMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
